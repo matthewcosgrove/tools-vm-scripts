@@ -1,0 +1,25 @@
+function init-govc() {
+  source /home/ubuntu/lab-ops/bin/init_govc.sh
+}
+
+function init_govc() {
+  init-govc
+}
+
+function mgmt() {
+  if [[ -f "$BUCC_WRAPPER_ROOT_DIR/bin/bucc_env" ]];then
+    STATE_VARS_STORE="${BBL_STATE_DIR}"/vars/director-vars-store.yml
+    if [[ ! -f "${STATE_VARS_STORE}" ]]; then
+      echo "No BUCC state found in ${STATE_VARS_STORE}. Skipping set up on login"
+      return 0
+    fi
+
+    echo "Preparing config for BUCC CLIs by sourcing bin/bucc_env.."
+    echo "Please wait.."
+    source <($BUCC_WRAPPER_ROOT_DIR/bin/bucc_env) > /dev/null
+    echo "Done"
+  else
+    echo "BUCC env script not found in $BUCC_WRAPPER_ROOT_DIR/bin"
+    ls $BUCC_WRAPPER_ROOT_DIR/bin
+  fi
+}

@@ -16,3 +16,10 @@ git clone --recurse-submodules https://github.com/matthewcosgrove/lab-ops.git /h
 ln -nsf "${CONFIG_DIR}"/.bash_aliases /home/ubuntu/.bash_aliases
 ln -nsf "${CONFIG_DIR}"/.functions /home/ubuntu/.functions
 ln -nsf "${CONFIG_DIR}"/.vimrc /home/ubuntu/.vimrc
+
+collections_path_dir="/home/ubuntu/collections/ansible_collections"
+collection_repo_dir="${collections_path_dir}/matthewcosgrove/tools_vm"
+mkdir -p "${collection_repo_dir}"
+pushd "${collection_repo_dir}/.." > /dev/null
+git clone https://github.com/matthewcosgrove/matthewcosgrove.tools_vm tools_vm || true
+popd > /dev/null

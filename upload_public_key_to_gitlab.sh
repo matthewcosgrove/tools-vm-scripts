@@ -6,3 +6,6 @@ set -euo pipefail
 public_key=$( cat /home/ubuntu/.ssh/id_rsa.pub )
 public_key_title=${public_key#ssh-rsa * } # https://tldp.org/LDP/abs/html/parameter-substitution.html
 curl -k -X POST --header "PRIVATE-TOKEN: ${GITLAB_PERSONAL_ACCESS_TOKEN}" -F "title=$public_key_title" -F "key=$public_key" "https://${GITLAB_FQDN}/api/v4/user/keys"
+echo #line break after curl 
+echo "[TEST] Public SSH key was uploaded successfully"
+ssh -T git@"${GITLAB_FQDN}"
